@@ -1,22 +1,72 @@
+import {useFormik} from 'formik';
+import React from 'react';
+import * as Yup from 'yup';
+
+const FILE_SIZE = 600000
+
+const SUPPORTED_FORMATS = [
+  'application/pdf',
+  'application/ppt',
+];
 
 
 function DeckForm(){
+  const formik = useFormik({
+    initialValues: {
+      companyName: '',
+      fileInput: '',
+    },
+    validationSchema: Yup.object({
+      companyName: Yup.string().required('A company name is required'),
+      fileInput: Yup.mixed()
+        .required('A file is required')
+        .test("fileSize", "The file is too large", (value) => {
+          console.log(value);
+          return value ? value.size <= FILE_SIZE : null
+        } )
+        .test("fileType", "Only PDF's and PPT files are accepted", (value) => value ? SUPPORTED_FORMATS.includes(value.type) : null )
+    }),
+    onSubmit: function onSubmit(values, {setSubmitting}) {
+      console.log(values);
+      setSubmitting(false)
+    }
+  });
+
   return (
-    <form>
+    <form onSubmit={formik.handleSubmit}>
       <div className="mb-3">
         <label htmlFor="nameInput" className="form-label">Company name</label>
-        <input type="text" className="form-control" id="nameInput" aria-describedby="nameInputHelp"/>
-        <div id="nameInputHelp" className="form-text">e.g. "Miraculous Melodies".</div>
+        <input
+          id="companyName"
+          name="companyName"
+          onChange={formik.handleChange}
+          value={formik.values.companyName}
+          type="text"
+          className="form-control" id="nameInput"
+          aria-describedby="nameInputHelp"/>
+          {formik.touched.companyName && formik.errors.companyName ? (
+           <div className={"small text-danger"}>{formik.errors.companyName}</div>
+         ) :  <div id="nameInputHelp" className="form-text">e.g. "Miraculous Melodies".</div> }
       </div>
       <div className="mb-3">
         <label htmlFor="fileInput" className="form-label">Your deck</label>
-        <input type="file" className="form-control" id="fileInput" aria-describedby="fileInputHelp"/>
-        <div id="fileInputHelp" className="form-text">Upload a PDF file to get started.</div>
+        <input
+          id="fileInput"
+          name="fileInput"
+          onChange={formik.handleChange}
+          value={formik.values.fileInput}
+          type="file"
+          className="form-control"
+          aria-describedby="fileInputHelp"/>
+        {formik.touched.fileInput && formik.errors.fileInput ? (
+          <div className={"small text-danger"}>{formik.errors.fileInput}</div>
+        ) : <div id="fileInputHelp" className="form-text">Upload a PDF file to get started.</div> }
       </div>
       <button type="submit" className="btn btn-primary">Submit</button>
     </form>
   );
-
 }
+
+
 
 export default DeckForm
