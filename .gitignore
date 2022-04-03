@@ -3,6 +3,7 @@
 
 /backend/uploads
 /backend/build
+/nginx/build
 
 # dependencies
 /frontend/node_modules

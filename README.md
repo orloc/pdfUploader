@@ -7,3 +7,5 @@ You should be able to build this project from anywhere. So installing things int
 ```
 cd pdfUploader && ./run.sh
 ```
+
+Navigate to localhost:3000 and profit
