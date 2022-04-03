@@ -8,19 +8,40 @@ function DeckList(){
     {
       companyName: 'thing',
       uploadedAt: new Date(),
-      numberOfSlides: 5,
+      numberOfSlides: 3,
+      images: [
+        "https://picsum.photos/200/200",
+        "https://picsum.photos/200/200",
+        "https://picsum.photos/200/200",
+      ],
       id: 1
     },
     {
       companyName: 'stf',
       uploadedAt: new Date(),
-      numberOfSlides: 5,
+      numberOfSlides: 6,
+      images: [
+        "https://picsum.photos/200/200",
+        "https://picsum.photos/200/200",
+        "https://picsum.photos/200/200",
+        "https://picsum.photos/200/200",
+      ],
       id: 2
     },
     {
       companyName: 'meows',
       uploadedAt: new Date(),
-      numberOfSlides: 5,
+      numberOfSlides: 20,
+      images: [
+        "https://picsum.photos/200/200",
+        "https://picsum.photos/200/200",
+        "https://picsum.photos/200/200",
+        "https://picsum.photos/200/200",
+        "https://picsum.photos/200/200",
+        "https://picsum.photos/200/200",
+        "https://picsum.photos/200/200",
+        "https://picsum.photos/200/200",
+      ],
       id: 3
     },
   ];

@@ -1,16 +1,13 @@
+import {useContext} from "react";
+import {CurrentDeckContext} from "../../context/currentDeck";
 
 function DeckViewer(){
+  const {currentDeck} = useContext(CurrentDeckContext)
   return (
     <div className="image-container mt-2">
-      <img src="https://picsum.photos/200/200" className="rounded" />
-      <img src="https://picsum.photos/200/200" className="rounded" />
-      <img src="https://picsum.photos/200/200" className="rounded" />
-      <img src="https://picsum.photos/200/200" className="rounded " />
-      <img src="https://picsum.photos/200/200" className="rounded " />
-      <img src="https://picsum.photos/200/200" className="rounded " />
-      <img src="https://picsum.photos/200/200" className="rounded " />
-      <img src="https://picsum.photos/200/200" className="rounded " />
-      <img src="https://picsum.photos/200/200" className="rounded " />
+      {currentDeck && currentDeck.images.map((img, i) => {
+        return (<img key={`${i}-img`} src={img} className="rounded" />)
+      })}
     </div>
   );
 }
