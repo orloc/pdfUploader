@@ -1,6 +1,7 @@
 import {useFormik} from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import {doUpload} from "../../service/api";
 
 const FILE_SIZE = 600000
 
@@ -24,8 +25,15 @@ function DeckForm(){
         })
         .test("fileType", "Only PDF's and PPT files are accepted", (value) => value ? SUPPORTED_FORMATS.includes(value.type) : null )
     }),
-    onSubmit: function onSubmit(values, {setSubmitting}) {
-      console.log(values);
+    onSubmit: async function onSubmit(values, {setSubmitting}) {
+
+      try {
+        const resp = await doUpload(values);
+        console.log(resp)
+      } catch(err) {
+        console.log(err)
+      }
+
       setSubmitting(false)
     }
   });

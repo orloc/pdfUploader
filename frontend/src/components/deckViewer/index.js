@@ -17,7 +17,6 @@ function DeckViewer(){
     setIsViewerOpen(false);
   };
 
-
   return (
     <div className="image-container mt-2">
       {currentDeck && currentDeck.images.map((img, i) => {
