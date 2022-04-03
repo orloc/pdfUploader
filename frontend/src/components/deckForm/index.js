@@ -9,21 +9,19 @@ const SUPPORTED_FORMATS = [
   'application/ppt',
 ];
 
-
 function DeckForm(){
   const formik = useFormik({
     initialValues: {
       companyName: '',
-      fileInput: '',
+      fileInput: null,
     },
     validationSchema: Yup.object({
       companyName: Yup.string().required('A company name is required'),
       fileInput: Yup.mixed()
         .required('A file is required')
         .test("fileSize", "The file is too large", (value) => {
-          console.log(value);
           return value ? value.size <= FILE_SIZE : null
-        } )
+        })
         .test("fileType", "Only PDF's and PPT files are accepted", (value) => value ? SUPPORTED_FORMATS.includes(value.type) : null )
     }),
     onSubmit: function onSubmit(values, {setSubmitting}) {
@@ -42,7 +40,7 @@ function DeckForm(){
           onChange={formik.handleChange}
           value={formik.values.companyName}
           type="text"
-          className="form-control" id="nameInput"
+          className="form-control"
           aria-describedby="nameInputHelp"/>
           {formik.touched.companyName && formik.errors.companyName ? (
            <div className={"small text-danger"}>{formik.errors.companyName}</div>
@@ -53,8 +51,9 @@ function DeckForm(){
         <input
           id="fileInput"
           name="fileInput"
-          onChange={formik.handleChange}
-          value={formik.values.fileInput}
+          onChange={(event) => {
+            formik.setFieldValue("fileInput", event.currentTarget.files[0]);
+          }}
           type="file"
           className="form-control"
           aria-describedby="fileInputHelp"/>
@@ -66,7 +65,5 @@ function DeckForm(){
     </form>
   );
 }
-
-
 
 export default DeckForm

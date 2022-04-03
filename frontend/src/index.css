@@ -22,3 +22,16 @@ code {
 .image-container img {
   margin: 3px;
 }
+
+form {
+  text-align: left;
+}
+
+ul.deckList li.selected {
+    border: gray 2px solid;
+}
+
+ul.deckList li:hover {
+  cursor: pointer;
+}
+

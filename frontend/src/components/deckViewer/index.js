@@ -13,7 +13,6 @@ function DeckViewer(){
       <img src="https://picsum.photos/200/200" className="rounded " />
     </div>
   );
-
 }
 
 export default DeckViewer
