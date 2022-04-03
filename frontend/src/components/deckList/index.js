@@ -56,7 +56,7 @@ function DeckList(){
     <ul className="list-group list-group-horizontal deckList">
       {decks.map((deck) => {
         return (
-          <li className={"list-group-item flex-fill " + (currentDeck && currentDeck.id === deck.id ? 'selected' : '')}
+          <li key={`list-${deck.id}`} className={"list-group-item flex-fill " + (currentDeck && currentDeck.id === deck.id ? 'selected' : '')}
               onClick={() => selectDeck(deck)}
           >
             <div className="d-flex w-100 justify-content-between">

@@ -23,6 +23,10 @@ code {
   margin: 3px;
 }
 
+.image-container img:hover {
+  cursor: pointer;
+}
+
 form {
   text-align: left;
 }
