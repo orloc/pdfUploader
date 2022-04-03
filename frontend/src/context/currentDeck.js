@@ -2,4 +2,6 @@ import {createContext} from "react";
 
 const CurrentDeckContext = createContext(null)
 
-export {CurrentDeckContext}
+const DeckListContext = createContext(null)
+
+export {CurrentDeckContext, DeckListContext}

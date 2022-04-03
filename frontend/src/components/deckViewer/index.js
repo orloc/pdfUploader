@@ -19,7 +19,7 @@ function DeckViewer(){
 
   return (
     <div className="image-container mt-2">
-      {currentDeck && currentDeck.images.map((img, i) => {
+      {currentDeck && currentDeck.images && currentDeck.images.map((img, i) => {
         return (<img
           onClick={ () => openImageViewer((i))}
           key={`${i}-img`}

@@ -1,9 +1,10 @@
 import {useFormik} from 'formik';
-import React from 'react';
+import React, {useContext} from 'react';
 import * as Yup from 'yup';
 import {doUpload} from "../../service/api";
+import {CurrentDeckContext, DeckListContext} from "../../context/currentDeck";
 
-const FILE_SIZE = 600000
+const FILE_SIZE = 60000000;
 
 const SUPPORTED_FORMATS = [
   'application/pdf',
@@ -11,6 +12,9 @@ const SUPPORTED_FORMATS = [
 ];
 
 function DeckForm(){
+  const { decks, setDecks } = useContext(DeckListContext);
+  const { setCurrentDeck } = useContext(CurrentDeckContext)
+
   const formik = useFormik({
     initialValues: {
       companyName: '',
@@ -25,15 +29,19 @@ function DeckForm(){
         })
         .test("fileType", "Only PDF's and PPT files are accepted", (value) => value ? SUPPORTED_FORMATS.includes(value.type) : null )
     }),
-    onSubmit: async function onSubmit(values, {setSubmitting}) {
-
+    onSubmit: async function onSubmit(values, {setSubmitting, resetForm}) {
       try {
         const resp = await doUpload(values);
-        console.log(resp)
+        const d = decks
+        d.push(resp)
+        setDecks(d)
+        setCurrentDeck(resp)
+        resetForm()
       } catch(err) {
-        console.log(err)
+        for (let [key, value] of Object.entries(err)) {
+          formik.errors[key] = value
+        }
       }
-
       setSubmitting(false)
     }
   });

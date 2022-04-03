@@ -3,10 +3,10 @@ package main
 import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"wefunder/controller"
-	"wefunder/repository"
-	"wefunder/service"
-	"wefunder/util"
+	"wefunder/backend/controller"
+	"wefunder/backend/repository"
+	"wefunder/backend/service"
+	"wefunder/backend/util"
 )
 
 const filePath = "uploads"
@@ -26,6 +26,7 @@ func main() {
 	  AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
 
+	e.Static("/uploads", "uploads")
 
 	deckRepo := repository.NewDeckRepository(pgCtx, pg)
 

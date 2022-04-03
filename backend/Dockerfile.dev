@@ -9,9 +9,6 @@ RUN go mod download
 # copy the entire project up in here so we can build it
 COPY . .
 
-# build all the binaries we may want
-WORKDIR "."
-
 RUN make -B
 
 EXPOSE 3030
