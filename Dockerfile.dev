@@ -1,10 +1,9 @@
-FROM golang:1.18-alpine as base
+FROM golang:1.17-buster as base
 
-RUN apk update && apk add --no-cache git make bash htop tzdata
+RUN apt update && apt -y install git make bash htop tzdata gcc mupdf
 WORKDIR /app
 
 COPY go.mod go.sum ./
-
 RUN go mod download
 
 # copy the entire project up in here so we can build it
@@ -12,19 +11,9 @@ COPY . .
 
 # build all the binaries we may want
 WORKDIR "."
+
 RUN make -B
 
-# make a new stage
-FROM alpine:latest
-RUN apk --no-cache add ca-certificates
-WORKDIR /root/
-
-COPY --from=base /app/build/run .
-# copy the env file so we have it
-COPY --from=base /app/build/.env .
-COPY --from=base /usr/share/zoneinfo /usr/share/zoneinfo
-ENV TZ="America/Los_Angeles"
-
 EXPOSE 3030
-CMD ["./run"]
+CMD ["./build/run"]
 

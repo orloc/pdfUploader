@@ -9,7 +9,7 @@ import (
 )
 
 func getQueryBuilder() sq.StatementBuilderType {
-        return sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
+	return sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
 }
 
 func execQuery(ctx context.Context, pool *pgxpool.Pool, sql string, args interface{}, handler func(rows pgx.Rows) (interface{}, error)) (interface{}, error) {
@@ -27,11 +27,9 @@ func execQuery(ctx context.Context, pool *pgxpool.Pool, sql string, args interfa
 	if args != nil {
 		var arg interface{}
 		arr, ok := args.([]interface{})
-
 		if ok == false {
 			return nil, errors.New("cannot cast args")
 		}
-
 		if len(arr) == 1 {
 			arg = arr[0]
 			rows, qErr = conn.Query(ctx, sql, arg)

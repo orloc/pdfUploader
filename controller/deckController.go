@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/labstack/echo"
 	"net/http"
+	"wefunder/entity"
 	"wefunder/repository"
 	"wefunder/service"
 )
@@ -31,7 +32,16 @@ func (r *DeckController) UploadDeck(c echo.Context) error {
 		return err
 	}
 
-	return c.String(http.StatusCreated, files)
+	deck := new(entity.Deck)
+	deck.CompanyName = companyName
+	deck.Images = files
+
+	err = r.repo.CreateDeck(deck)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(http.StatusCreated, deck)
 }
 
 func (r *DeckController) GetDecks(c echo.Context) error {

@@ -38,7 +38,7 @@ func (r *DeckRepository) LoadDecks()  ([]*entity.Deck, error) {
 	return []*entity.Deck{}, nil
 }
 
-func (r *DeckRepository) CreateMessage(dat *entity.Deck)  error {
+func (r *DeckRepository) CreateDeck(dat *entity.Deck)  error {
 	sql, args, err := getQueryBuilder().
 		Insert(dat.TableName()).
 		Columns("company_name", "images").

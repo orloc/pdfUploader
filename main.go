@@ -12,6 +12,7 @@ import (
 const filePath = "uploads"
 
 func main() {
+
 	env := util.LoadEnv()
 	pg, pgCtx := util.AcquirePostgresPool(env.DBUrl)
 

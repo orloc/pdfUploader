@@ -7,7 +7,7 @@ CREATE TABLE decks (
     created_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY(id)
 );
-CREATE UNIQUE INDEX user_cp_idx ON decks (company_name);
+CREATE UNIQUE INDEX deck_cp_idx ON decks (company_name);
 -- +goose StatementEnd
 
 -- +goose Down
